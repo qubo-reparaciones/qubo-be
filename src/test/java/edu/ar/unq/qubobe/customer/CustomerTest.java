@@ -8,6 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CustomerTest {
     @Test
+    void whenCreateAValidCustomerHasTheValuesThatReceived() {
+        Customer customer = Customer.named("12345678", "name", "lastname", "123456", "algo@otracosa");
+        assertThat(customer.getDni(), is("12345678"));
+        assertThat(customer.getName(), is("name"));
+        assertThat(customer.getLastname(), is("lastname"));
+        assertThat(customer.getPhoneNumber(), is("123456"));
+        assertThat(customer.getEmail().get(), is("algo@otracosa"));
+    }
+
+    @Test
     void canNotCreateCustomerWithEmptyName() {
         RuntimeException thrown = assertThrows(RuntimeException.class,
             () -> Customer.named("12345678", "", "lastname", "phoneNumber", "mail"));
