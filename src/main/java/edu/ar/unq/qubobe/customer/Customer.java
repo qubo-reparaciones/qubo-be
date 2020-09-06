@@ -52,6 +52,22 @@ public class Customer {
         if (value == null || value.isEmpty()) throw new RuntimeException(ifNone);
     }
 
+    public Optional<String> getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
     public Boolean hasEmail() {
         return !email.isAbsent();
     }
@@ -63,5 +79,13 @@ public class Customer {
             "Apellido: " + lastname + ".\n" +
             "Telefono: " + phoneNumber + ".\n" +
             "Email: " + email.orElse("no tiene.");
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public boolean isIdentifiedAs(String dni) {
+        return this.dni.equals(dni);
     }
 }
