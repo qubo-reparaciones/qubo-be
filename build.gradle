@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+    //Datatype - Optionals
+    implementation 'info.kfgodel:nary:2.0.7'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
@@ -32,6 +34,9 @@ dependencies {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
     testImplementation 'org.springframework.security:spring-security-test'
+    //JUnit
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 }
 
 test {
@@ -39,15 +44,15 @@ test {
 }
 
 //Task para buildear mappers
-task rebuildMappers {
-    dependsOn 'clean'
-    dependsOn 'assemble'
-    tasks.findByName('assemble').mustRunAfter 'clean'
-}
+//task rebuildMappers {
+//    dependsOn 'clean'
+//    dependsOn 'assemble'
+//    tasks.findByName('assemble').mustRunAfter 'clean'
+//}
 
 //Compilar mapstruct
-tasks.withType(JavaCompile) {
-    options.compilerArgs = [
-            '-Amapstruct.suppressGeneratorTimestamp=true'
-    ]
-}
+//tasks.withType(JavaCompile) {
+//    options.compilerArgs = [
+//            '-Amapstruct.suppressGeneratorTimestamp=true'
+//    ]
+//}
