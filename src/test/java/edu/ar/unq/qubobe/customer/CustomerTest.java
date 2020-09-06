@@ -9,55 +9,90 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CustomerTest {
     @Test
     void canNotCreateCustomerWithEmptyName() {
-        assertThrows(RuntimeException.class,
-            () -> Customer.named("", "lastname", "phoneNumber", "mail"), Customer.NAME_CAN_NOT_BE_EMPTY);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("12345678", "", "lastname", "phoneNumber", "mail"));
+        assertThat(thrown.getMessage(), is(Customer.NAME_CAN_NOT_BE_EMPTY));
     }
 
     @Test
     void canNotCreateCustomerWithNoneName() {
-        assertThrows(RuntimeException.class,
-            () -> Customer.named(null, "lastname", "phoneNumber", "mail"), Customer.NAME_CAN_NOT_BE_EMPTY);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("12345678", null, "lastname", "phoneNumber", "mail"));
+        assertThat(thrown.getMessage(), is(Customer.NAME_CAN_NOT_BE_EMPTY));
     }
 
     @Test
     void canNotCreateCustomerWithEmptyLastname() {
-        assertThrows(RuntimeException.class,
-            () -> Customer.named("name", "", "phoneNumber", "mail"), Customer.LASTNAME_CAN_NOT_BE_EMPTY);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("12345678", "name", "", "phoneNumber", "mail"));
+        assertThat(thrown.getMessage(), is(Customer.LASTNAME_CAN_NOT_BE_EMPTY));
     }
 
     @Test
     void canNotCreateCustomerWithNoneLastname() {
-        assertThrows(RuntimeException.class,
-            () -> Customer.named("name", null, "phoneNumber", "mail"), Customer.LASTNAME_CAN_NOT_BE_EMPTY);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("12345678", "name", null, "phoneNumber", "mail"), Customer.LASTNAME_CAN_NOT_BE_EMPTY);
+        assertThat(thrown.getMessage(), is(Customer.LASTNAME_CAN_NOT_BE_EMPTY));
     }
 
     @Test
     void canNotCreateCustomerWithEmptyPhoneNumber() {
-        assertThrows(RuntimeException.class,
-            () -> Customer.named("name", "lastname", "", "mail"), Customer.PHONE_NUMBER_CAN_NOT_BE_EMPTY);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("12345678", "name", "lastname", "", "mail"));
+        assertThat(thrown.getMessage(), is(Customer.PHONE_NUMBER_CAN_NOT_BE_EMPTY));
     }
 
     @Test
     void canNotCreateCustomerWithNonePhoneNumber() {
-        assertThrows(RuntimeException.class,
-            () -> Customer.named("name", "lastname", null, "mail"), Customer.PHONE_NUMBER_CAN_NOT_BE_EMPTY);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("12345678", "name", "lastname", null, "mail"), Customer.PHONE_NUMBER_CAN_NOT_BE_EMPTY);
+        assertThat(thrown.getMessage(), is(Customer.PHONE_NUMBER_CAN_NOT_BE_EMPTY));
     }
 
     @Test
     void canCreateCustomerWithoutMail() {
-        Customer customer = Customer.named("name", "lastname", "123456", null);
+        Customer customer = Customer.named("12345678", "name", "lastname", "123456", null);
         assertThat(customer.hasEmail(), is(false));
     }
 
     @Test
     void canNotCreateCustomerWithInvalidEmail() {
-        assertThrows(RuntimeException.class,
-            () -> Customer.named("name", "lastname", "123456", ""), Customer.EMAIL_INVALID);
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("12345678", "name", "lastname", "123456", ""));
+        assertThat(thrown.getMessage(), is(Customer.EMAIL_INVALID));
     }
 
     @Test
     void canCreateCustomerWithValidMail() {
-        Customer customer = Customer.named("name", "lastname", "123456", "algo@otracosa");
+        Customer customer = Customer.named("12345678", "name", "lastname", "123456", "algo@otracosa");
         assertThat(customer.hasEmail(), is(true));
+    }
+
+    @Test
+    void canNotCreateCustomerWithEmptyDni() {
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("", "name", "lastname", "phoneNumber", "algo@otracosa"));
+        assertThat(thrown.getMessage(), is(Customer.DNI_CAN_NOT_BE_EMPTY));
+    }
+
+    @Test
+    void canNotCreateCustomerWithNoneDni() {
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named(null, "name", "lastname", "phoneNumber", "algo@otracosa"));
+        assertThat(thrown.getMessage(), is(Customer.DNI_CAN_NOT_BE_EMPTY));
+    }
+
+    @Test
+    void canNotCreateCustomerWithLeetersInDni() {
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("aaaa1111", "name", "lastname", "phoneNumber", "algo@otracosa"));
+        assertThat(thrown.getMessage(), is(Customer.DNI_MUST_BE_NUMERIC_WITH_DIGITS));
+    }
+
+    @Test
+    void canNotCreateCustomerWithInvalidDniLength() {
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Customer.named("111", "name", "lastname", "phoneNumber", "algo@otracosa"));
+        assertThat(thrown.getMessage(), is(Customer.DNI_MUST_BE_NUMERIC_WITH_DIGITS));
     }
 }
