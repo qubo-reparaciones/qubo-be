@@ -2,7 +2,9 @@ package edu.ar.unq.qubobe.customer;
 
 import ar.com.kfgodel.nary.api.optionals.Optional;
 
-import static edu.ar.unq.qubobe.extensions.StringExtension.isNumber;
+import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertIfNoneOrEmpty;
+import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertValidDni;
+import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertValidEmail;
 
 public class Customer {
     public static final int DNI_DIGITS = 8;
@@ -27,29 +29,13 @@ public class Customer {
     }
 
     public static Customer named(String dni, String name, String lastname, String phoneNumber, String email) {
-        assertIfEmpty(dni, DNI_CAN_NOT_BE_EMPTY);
+        assertIfNoneOrEmpty(dni, DNI_CAN_NOT_BE_EMPTY);
         assertValidDni(dni);
-        assertIfEmpty(name, NAME_CAN_NOT_BE_EMPTY);
-        assertIfEmpty(lastname, LASTNAME_CAN_NOT_BE_EMPTY);
-        assertIfEmpty(phoneNumber, PHONE_NUMBER_CAN_NOT_BE_EMPTY);
+        assertIfNoneOrEmpty(name, NAME_CAN_NOT_BE_EMPTY);
+        assertIfNoneOrEmpty(lastname, LASTNAME_CAN_NOT_BE_EMPTY);
+        assertIfNoneOrEmpty(phoneNumber, PHONE_NUMBER_CAN_NOT_BE_EMPTY);
         assertValidEmail(email);
         return new Customer(dni, name, lastname, phoneNumber, Optional.ofNullable(email));
-    }
-
-    private static void assertValidDni(String dni) {
-        if (dni != null && (!isNumber(dni) || DNI_DIGITS != dni.length())) {
-            throw new RuntimeException(DNI_MUST_BE_NUMERIC_WITH_DIGITS);
-        }
-    }
-
-    private static void assertValidEmail(String email) {
-        if (email != null && !email.contains("@")) {
-            throw new RuntimeException(EMAIL_INVALID);
-        }
-    }
-
-    private static void assertIfEmpty(String value, String ifNone) {
-        if (value == null || value.isEmpty()) throw new RuntimeException(ifNone);
     }
 
     public Optional<String> getEmail() {
@@ -72,6 +58,14 @@ public class Customer {
         return !email.isAbsent();
     }
 
+    public String getDni() {
+        return dni;
+    }
+
+    public boolean isIdentifiedAs(String dni) {
+        return this.dni.equals(dni);
+    }
+
     @Override
     public String toString() {
         return "DNI: " + dni + ".\n" +
@@ -79,13 +73,5 @@ public class Customer {
             "Apellido: " + lastname + ".\n" +
             "Telefono: " + phoneNumber + ".\n" +
             "Email: " + email.orElse("no tiene.");
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public boolean isIdentifiedAs(String dni) {
-        return this.dni.equals(dni);
     }
 }
