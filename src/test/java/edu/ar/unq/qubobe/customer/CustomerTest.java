@@ -10,6 +10,7 @@ public class CustomerTest {
     @Test
     void whenCreateAValidCustomerHasTheValuesThatReceived() {
         Customer customer = Customer.named("12345678", "name", "lastname", "123456", "algo@otracosa");
+
         assertThat(customer.getDni(), is("12345678"));
         assertThat(customer.getName(), is("name"));
         assertThat(customer.getLastname(), is("lastname"));
