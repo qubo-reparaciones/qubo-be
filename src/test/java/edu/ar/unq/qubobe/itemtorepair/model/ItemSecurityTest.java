@@ -1,4 +1,4 @@
-package edu.ar.unq.qubobe.itemtorepair;
+package edu.ar.unq.qubobe.itemtorepair.model;
 
 import org.junit.jupiter.api.Test;
 

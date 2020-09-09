@@ -1,4 +1,4 @@
-package edu.ar.unq.qubobe.itemtorepair;
+package edu.ar.unq.qubobe.itemtorepair.model;
 
 import ar.com.kfgodel.nary.api.optionals.Optional;
 import org.junit.jupiter.api.Test;

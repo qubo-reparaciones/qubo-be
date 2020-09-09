@@ -1,4 +1,4 @@
-package edu.ar.unq.qubobe.customer;
+package edu.ar.unq.qubobe.customer.model;
 
 import org.junit.jupiter.api.Test;
 
