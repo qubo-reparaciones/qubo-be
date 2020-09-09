@@ -34,4 +34,8 @@ public class Article {
     public String getModel() {
         return model;
     }
+
+    public boolean isNamed(String name) {
+        return this.name.equals(name);
+    }
 }

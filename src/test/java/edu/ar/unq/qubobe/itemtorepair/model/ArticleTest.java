@@ -64,4 +64,16 @@ public class ArticleTest {
         assertThat(article.getBrand(), is("brand"));
         assertThat(article.getModel(), is("model"));
     }
+
+    @Test
+    void whenCheckIsNamedAsReturnsTrue() {
+        Article article = Article.named("name", "brand", "model");
+        assertThat(article.isNamed("name"), is(true));
+    }
+
+    @Test
+    void whenCheckIsNamedAsReturnsFalse() {
+        Article article = Article.named("name", "brand", "model");
+        assertThat(article.isNamed("different"), is(false));
+    }
 }

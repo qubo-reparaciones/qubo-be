@@ -16,7 +16,7 @@ public class RepairRequestRegistersTransient implements RepairRequestRegisters {
 //    public boolean hasCustomerIdentifiedAs(String dni) {
 //        return this.repairRequests.stream().anyMatch(request -> request.isIdentifiedAs(dni));
 //    }
-//
+
     @Override
     public void add(RepairRequest repairRequest) {
         this.repairRequests.add(repairRequest);
@@ -29,6 +29,6 @@ public class RepairRequestRegistersTransient implements RepairRequestRegisters {
 
     @Override
     public RepairRequest getById(String repairRequestId) {
-        return null;
+        return repairRequests.get(Integer.parseInt(repairRequestId));
     }
 }

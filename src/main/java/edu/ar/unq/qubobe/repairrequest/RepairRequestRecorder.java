@@ -19,6 +19,7 @@ import edu.ar.unq.qubobe.repairrequest.persistence.RepairRequestRegisters;
 
 public class RepairRequestRecorder {
     public static final String NON_EXISTENT_CUSTOMER = "No existe el cliente buscado";
+    public static final String NON_EXISTENT_ARTICLE = "No existe el articulo buscado";
     private final RepairRequestRegisters repairRequestRegisters;
     private final ArticleRegisters articleRegisters;
     private final CustomerAgenda customerAgenda;
@@ -51,7 +52,9 @@ public class RepairRequestRecorder {
     }
 
     private ItemToRepair getItemToRepair(ItemToRepairTO itemToRepairTO) {
-        Article article = articleRegisters.getByName(itemToRepairTO.getArticle());
+        Article article = articleRegisters
+            .getByName(itemToRepairTO.getArticle())
+            .orElseThrow(() -> new RuntimeException(NON_EXISTENT_ARTICLE));
         Optional<ItemSecurity> itemSecurityOptional = Optional.create(itemToRepairTO
             .getItemSecurity()
             .map(itemSecurityTO ->

@@ -71,7 +71,7 @@ public class RepairRequestRecorderTest {
         when(customerAgenda.getByName(customer))
             .thenReturn(Optional.of(Customer.named("12345678", "name", "lastname", "phone")));
         when(articleRegisters.getByName(article))
-            .thenReturn(Article.named(article, "brand", "model"));
+            .thenReturn(Optional.of(Article.named(article, "brand", "model")));
 
         RepairRequest repairRequest = recorder.record(repairRequestTO);
 
@@ -98,7 +98,7 @@ public class RepairRequestRecorderTest {
         when(customerAgenda.getByName(customer))
             .thenReturn(Optional.of(Customer.named("12345678", "name", "lastname", "phone")));
         when(articleRegisters.getByName(article))
-            .thenReturn(Article.named(article, "brand", "model"));
+            .thenReturn(Optional.of(Article.named(article, "brand", "model")));
 
         RepairRequest repairRequest = recorder.record(repairRequestTO);
 
@@ -124,7 +124,7 @@ public class RepairRequestRecorderTest {
         when(customerAgenda.getByName(customer))
             .thenReturn(Optional.empty());
         when(articleRegisters.getByName(article))
-            .thenReturn(Article.named(article, "brand", "model"));
+            .thenReturn(Optional.of(Article.named(article, "brand", "model")));
 
         RuntimeException thrown = assertThrows(RuntimeException.class,
             () -> recorder.record(repairRequestTO));
@@ -156,6 +156,28 @@ public class RepairRequestRecorderTest {
         assertOnRepairRequest(customer.getName(), article.getName(), itemToRepair.getSerialNumber(), creationDate,
             technician, notes, creationInfo.getReportedProblem().get(), repairRequest, "BUDGETED");
         verify(budgetRegisters, times(1)).add(budget);
+    }
+
+    @Test
+    void whenWantRecordARepairRequestWithUnknownArticleReturnsAnErrorAndNotSaveTheRepairRequest() {
+        String customer = "name";
+        String article = "article";
+        String serialNumber = "serialNumber";
+        LocalDateTime creationDate = LocalDateTime.now();
+        String technician = "pepe";
+        String notes = "notes";
+        String problems = "problems";
+        ItemToRepairTO itemToRepairTO = new ItemToRepairTO(article, serialNumber, null);
+        RepairRequestCreationInfoTO creationInfo = new RepairRequestCreationInfoTO(creationDate, technician,
+            notes, problems);
+        RepairRequestTO repairRequestTO = new RepairRequestTO(customer, itemToRepairTO, creationInfo);
+        when(customerAgenda.getByName(customer)).thenReturn(Optional.empty());
+        when(articleRegisters.getByName(article)).thenReturn(Optional.empty());
+
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> recorder.record(repairRequestTO));
+        assertThat(thrown.getMessage(), Matchers.is(RepairRequestRecorder.NON_EXISTENT_ARTICLE));
+        verify(repairRequestRegisters, never()).add(any());
     }
 
     private void assertOnRepairRequest(String customer, String article, String serialNumber, LocalDateTime creationDate,
