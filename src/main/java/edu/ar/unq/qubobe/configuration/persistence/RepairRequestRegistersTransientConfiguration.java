@@ -1,4 +1,4 @@
-package edu.ar.unq.qubobe.configuration;
+package edu.ar.unq.qubobe.configuration.persistence;
 
 import edu.ar.unq.qubobe.repairrequest.persistence.BudgetRegisters;
 import edu.ar.unq.qubobe.repairrequest.persistence.BudgetRegistersTransient;

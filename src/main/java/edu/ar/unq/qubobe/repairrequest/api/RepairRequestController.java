@@ -28,7 +28,6 @@ public class RepairRequestController {
     private final RepairRequestRegisters repairRequestRegisters;
     private final BudgetRegisters budgetRegisters;
 
-
     @Autowired
     public RepairRequestController(RepairRequestRecorder repairRequestRecorder,
                                    RepairRequestRegisters repairRequestRegisters, BudgetRegisters budgetRegisters) {

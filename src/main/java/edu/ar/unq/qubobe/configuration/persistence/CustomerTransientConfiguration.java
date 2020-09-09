@@ -1,4 +1,4 @@
-package edu.ar.unq.qubobe.configuration;
+package edu.ar.unq.qubobe.configuration.persistence;
 
 import edu.ar.unq.qubobe.customer.persistence.CustomerAgenda;
 import edu.ar.unq.qubobe.customer.persistence.CustomerAgendaTransient;
