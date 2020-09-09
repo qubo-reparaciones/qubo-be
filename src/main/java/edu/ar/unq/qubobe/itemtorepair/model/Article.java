@@ -1,6 +1,6 @@
-package edu.ar.unq.qubobe.itemtorepair;
+package edu.ar.unq.qubobe.itemtorepair.model;
 
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertIfNoneOrEmpty;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertIfNoneOrEmpty;
 
 public class Article {
     public static final String NAME_CAN_NOT_BE_EMPTY = "El nombre no puede ser nulo o vacio";

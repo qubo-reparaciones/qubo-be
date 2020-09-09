@@ -1,6 +1,6 @@
 package edu.ar.unq.qubobe.repairrequest.persistence;
 
-import edu.ar.unq.qubobe.repairrequest.RepairRequest;
+import edu.ar.unq.qubobe.repairrequest.model.RepairRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,5 +25,10 @@ public class RepairRequestRegistersTransient implements RepairRequestRegisters {
     @Override
     public List<RepairRequest> getAll() {
         return this.repairRequests;
+    }
+
+    @Override
+    public RepairRequest getById(String repairRequestId) {
+        return null;
     }
 }

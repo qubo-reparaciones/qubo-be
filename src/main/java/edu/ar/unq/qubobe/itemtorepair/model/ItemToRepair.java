@@ -1,9 +1,9 @@
-package edu.ar.unq.qubobe.itemtorepair;
+package edu.ar.unq.qubobe.itemtorepair.model;
 
 import ar.com.kfgodel.nary.api.optionals.Optional;
 
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertIfNone;
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertIfNoneOrEmpty;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertIfNone;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertIfNoneOrEmpty;
 
 public class ItemToRepair {
     public static final String ARTICLE_NOT_BE_EMPTY = "Debe tener un artículo";

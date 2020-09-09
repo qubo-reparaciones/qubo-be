@@ -1,10 +1,10 @@
-package edu.ar.unq.qubobe.repairrequest;
+package edu.ar.unq.qubobe.repairrequest.model;
 
 import ar.com.kfgodel.nary.api.optionals.Optional;
 
 import java.time.LocalDateTime;
 
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertIfNoneOrEmpty;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertIfNoneOrEmpty;
 
 public class RepairRequestCreationInfo {
     public static final String CREATION_DATE_NOT_BE_EMPTY = "Debe tener fecha de creación";

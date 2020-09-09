@@ -1,0 +1,42 @@
+package edu.ar.unq.qubobe.repairrequest.api;
+
+import edu.ar.unq.qubobe.repairrequest.RepairRequestRecorder;
+import edu.ar.unq.qubobe.repairrequest.api.to.BudgetTO;
+import edu.ar.unq.qubobe.repairrequest.api.to.RepairRequestTO;
+import edu.ar.unq.qubobe.repairrequest.model.Budget;
+import edu.ar.unq.qubobe.repairrequest.model.RepairRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping(value = RepairRequestController.basePath, consumes = MediaType.APPLICATION_JSON_VALUE)
+public class RepairRequestController {
+    public static final String basePath = "/repair-request";
+    public static Logger logger = LoggerFactory.getLogger(RepairRequestController.class);
+    private final RepairRequestRecorder repairRequestRecorder;
+
+    @Autowired
+    public RepairRequestController(RepairRequestRecorder repairRequestRecorder) {
+        this.repairRequestRecorder = repairRequestRecorder;
+    }
+
+    @PostMapping
+    public RepairRequest register(@RequestBody RepairRequestTO repairRequestTO) {
+        RepairRequest repairRequest = repairRequestRecorder.record(repairRequestTO);
+        logger.info("Pedido de reparación creado: " + repairRequest.toString());
+        return repairRequest;
+    }
+
+    @PostMapping("budget")
+    public Budget createBudget(@RequestBody BudgetTO budgetTO) {
+        Budget budget = repairRequestRecorder.recordBudget(budgetTO);
+        logger.info("Presupuesto generado: " + budget.toString());
+        return budget;
+    }
+}

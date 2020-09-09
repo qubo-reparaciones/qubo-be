@@ -1,6 +1,6 @@
-package edu.ar.unq.qubobe.itemtorepair;
+package edu.ar.unq.qubobe.itemtorepair.model;
 
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertIfNoneOrEmpty;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertIfNoneOrEmpty;
 
 public class ItemSecurity {
     public static final String TYPE_NOT_BE_EMPTY = "Debe tener un tipo de seguridad";
