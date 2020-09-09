@@ -30,6 +30,8 @@ public class CustomerTO {
     }
 
     public Customer get() {
-        return Customer.named(dni, name, lastname, phoneNumber);
+        return email == null
+            ? Customer.named(dni, name, lastname, phoneNumber)
+            : Customer.namedWithEmail(dni, name, lastname, phoneNumber, email);
     }
 }
