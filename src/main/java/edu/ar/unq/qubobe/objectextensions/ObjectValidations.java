@@ -1,8 +1,8 @@
-package edu.ar.unq.qubobe.extensions;
+package edu.ar.unq.qubobe.objectextensions;
 
-import edu.ar.unq.qubobe.customer.Customer;
+import edu.ar.unq.qubobe.customer.model.Customer;
 
-import static edu.ar.unq.qubobe.extensions.StringExtension.isNumber;
+import static edu.ar.unq.qubobe.objectextensions.StringExtension.isNumber;
 
 public class ObjectValidations {
     public static void assertIfNoneOrEmpty(String value, String ifNone) {

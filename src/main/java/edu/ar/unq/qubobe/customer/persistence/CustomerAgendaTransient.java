@@ -1,7 +1,7 @@
 package edu.ar.unq.qubobe.customer.persistence;
 
 import ar.com.kfgodel.nary.api.optionals.Optional;
-import edu.ar.unq.qubobe.customer.Customer;
+import edu.ar.unq.qubobe.customer.model.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,5 +31,10 @@ public class CustomerAgendaTransient implements CustomerAgenda {
     @Override
     public Optional<Customer> getByName(String name) {
         return Optional.create(this.customers.stream().filter(customer -> customer.asNamedAs(name)).findFirst());
+    }
+
+    @Override
+    public Optional<Customer> getByDni(String dni) {
+        return Optional.create(this.customers.stream().filter(customer -> customer.isIdentifiedAs(dni)).findFirst());
     }
 }

@@ -1,4 +1,4 @@
-package edu.ar.unq.qubobe.extensions;
+package edu.ar.unq.qubobe.objectextensions;
 
 public class StringExtension {
     public static Boolean isNumber(String toEvaluate) {

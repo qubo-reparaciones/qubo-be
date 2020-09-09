@@ -1,6 +1,6 @@
 package edu.ar.unq.qubobe.itemtorepair.persistence;
 
-import edu.ar.unq.qubobe.itemtorepair.Article;
+import edu.ar.unq.qubobe.itemtorepair.model.Article;
 
 public class ArticleRegistersTransient implements ArticleRegisters {
     @Override

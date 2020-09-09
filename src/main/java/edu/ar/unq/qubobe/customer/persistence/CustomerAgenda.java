@@ -1,7 +1,7 @@
 package edu.ar.unq.qubobe.customer.persistence;
 
 import ar.com.kfgodel.nary.api.optionals.Optional;
-import edu.ar.unq.qubobe.customer.Customer;
+import edu.ar.unq.qubobe.customer.model.Customer;
 
 import java.util.List;
 
@@ -13,4 +13,6 @@ public interface CustomerAgenda {
     List<Customer> getAll();
 
     Optional<Customer> getByName(String customer);
+
+    Optional<Customer> getByDni(String dni);
 }
