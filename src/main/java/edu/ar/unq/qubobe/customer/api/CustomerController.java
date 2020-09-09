@@ -44,7 +44,7 @@ public class CustomerController {
         return customerAgenda.getAll();
     }
 
-    @GetMapping("byId")
+    @GetMapping("by")
     public Customer getByDni(@RequestParam String dni) {
         return customerAgenda
             .getByDni(dni)
