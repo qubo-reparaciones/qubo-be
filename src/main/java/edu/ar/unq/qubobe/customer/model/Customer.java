@@ -1,10 +1,10 @@
-package edu.ar.unq.qubobe.customer;
+package edu.ar.unq.qubobe.customer.model;
 
 import ar.com.kfgodel.nary.api.optionals.Optional;
 
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertIfNoneOrEmpty;
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertValidDni;
-import static edu.ar.unq.qubobe.extensions.ObjectValidations.assertValidEmail;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertIfNoneOrEmpty;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertValidDni;
+import static edu.ar.unq.qubobe.objectextensions.ObjectValidations.assertValidEmail;
 
 public class Customer {
     public static final int DNI_DIGITS = 8;

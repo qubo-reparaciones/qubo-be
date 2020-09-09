@@ -1,6 +1,6 @@
 package edu.ar.unq.qubobe.customer.api.to;
 
-import edu.ar.unq.qubobe.customer.Customer;
+import edu.ar.unq.qubobe.customer.model.Customer;
 
 public class CustomerTO {
     private String dni;
@@ -30,6 +30,6 @@ public class CustomerTO {
     }
 
     public Customer get() {
-        return Customer.named(dni, name, lastname, phoneNumber, email);
+        return Customer.named(dni, name, lastname, phoneNumber);
     }
 }
