@@ -16,8 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class BudgetTest {
     @Test
     void whenCreateABudgetHasTheValuesThatReceived() {
-        RepairRequest repairRequest = getRepairRequest();
-        LocalDateTime deliveryDate = LocalDateTime.now().plusDays(1);
+        LocalDateTime creationDate = LocalDateTime.now();
+        RepairRequest repairRequest = getRepairRequest(creationDate);
+        LocalDateTime deliveryDate = creationDate.plusDays(1);
         BigDecimal cost = BigDecimal.ONE;
         String description = "description";
 
@@ -30,8 +31,8 @@ public class BudgetTest {
     }
 
     @Test
-    void whenCreateARepairRequestWithDeliveryDateAndDeliveryDateBeforeCreationDateThenThrowAnError() {
-        RepairRequest repairRequest = getRepairRequest();
+    void whenCreateARepairRequestWithCostLessThanZeroThenThrowAnError() {
+        RepairRequest repairRequest = getRepairRequest(LocalDateTime.now());
         BigDecimal cost = BigDecimal.ONE.negate();
         LocalDateTime deliveryDate = LocalDateTime.now().plusDays(1);
         String description = "description";
@@ -48,11 +49,23 @@ public class BudgetTest {
         assertThat(thrown.getMessage(), is(Budget.REPAIR_REQUEST_NOT_BE_EMPTY));
     }
 
-    private RepairRequest getRepairRequest() {
+    @Test
+    void whenCreateARepairRequestWithDeliveryDateBeforeCreationDateThenThrowAnError() {
+        LocalDateTime creationDate = LocalDateTime.now();
+        RepairRequest repairRequest = getRepairRequest(creationDate);
+        BigDecimal cost = BigDecimal.ONE;
+        LocalDateTime beforeDeliveryDate = creationDate.minusDays(1);
+        String description = "description";
+
+        RuntimeException thrown = assertThrows(RuntimeException.class,
+            () -> Budget.create(repairRequest, cost, beforeDeliveryDate, description));
+        assertThat(thrown.getMessage(), is(Budget.DELIVERY_DATE_NOT_BE_BEFORE_THAN_CREATION_DATE));
+    }
+
+    private RepairRequest getRepairRequest(LocalDateTime creationDate) {
         Customer customer = Customer.named("12345678", "name", "lastname", "123456");
         Article article = Article.named("name", "brand", "model");
         ItemToRepair itemToRepair = ItemToRepair.withoutSecurity(article, "nroserie");
-        LocalDateTime creationDate = LocalDateTime.now();
         String technician = "technician";
         String notes = "notes";
         String reportedProblem = "reportedProblem";

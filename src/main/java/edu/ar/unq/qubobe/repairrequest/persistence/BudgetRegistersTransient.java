@@ -16,4 +16,9 @@ public class BudgetRegistersTransient implements BudgetRegisters {
     public void add(Budget budget) {
         budgets.add(budget);
     }
+
+    @Override
+    public List<Budget> getAll() {
+        return budgets;
+    }
 }

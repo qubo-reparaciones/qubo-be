@@ -22,7 +22,7 @@ public class RepairRequestRecorder {
     private final RepairRequestRegisters repairRequestRegisters;
     private final ArticleRegisters articleRegisters;
     private final CustomerAgenda customerAgenda;
-    private BudgetRegisters budgetRegisters;
+    private final BudgetRegisters budgetRegisters;
 
     public RepairRequestRecorder(RepairRequestRegisters repairRequestRegisters, ArticleRegisters articleRegisters,
                                  CustomerAgenda customerAgenda, BudgetRegisters budgetRegisters) {
@@ -71,13 +71,4 @@ public class RepairRequestRecorder {
     private Customer getCustomer(String customer) {
         return customerAgenda.getByName(customer).orElseThrow(() -> new RuntimeException(NON_EXISTENT_CUSTOMER));
     }
-
-//    private void assertIfLessThanCreationDate(LocalDateTime creationDate, LocalDateTime deliveryDate) {
-//        //        assertIfLessThanCreationDate(creationInfo.getCreationDate(), deliveryDate);
-//        if (deliveryDate.isBefore(creationDate))
-//            throw new RuntimeException(DELIVERY_DATE_NOT_BE_BEFORE_THAN_CREATION_DATE);
-//    }
-//    public static final String DELIVERY_DATE_NOT_BE_BEFORE_THAN_CREATION_DATE = "La fecha y hora de entrega no " +
-//    "puede ser anterior a la fecha de creación";
-
 }
