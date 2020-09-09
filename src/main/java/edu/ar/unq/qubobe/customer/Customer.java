@@ -28,7 +28,16 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public static Customer named(String dni, String name, String lastname, String phoneNumber, String email) {
+    public static Customer named(String dni, String name, String lastname, String phoneNumber) {
+        assertIfNoneOrEmpty(dni, DNI_CAN_NOT_BE_EMPTY);
+        assertValidDni(dni);
+        assertIfNoneOrEmpty(name, NAME_CAN_NOT_BE_EMPTY);
+        assertIfNoneOrEmpty(lastname, LASTNAME_CAN_NOT_BE_EMPTY);
+        assertIfNoneOrEmpty(phoneNumber, PHONE_NUMBER_CAN_NOT_BE_EMPTY);
+        return new Customer(dni, name, lastname, phoneNumber, Optional.empty());
+    }
+
+    public static Customer namedWithEmail(String dni, String name, String lastname, String phoneNumber, String email) {
         assertIfNoneOrEmpty(dni, DNI_CAN_NOT_BE_EMPTY);
         assertValidDni(dni);
         assertIfNoneOrEmpty(name, NAME_CAN_NOT_BE_EMPTY);
@@ -73,5 +82,9 @@ public class Customer {
             "Apellido: " + lastname + ".\n" +
             "Telefono: " + phoneNumber + ".\n" +
             "Email: " + email.orElse("no tiene.");
+    }
+
+    public boolean asNamedAs(String name) {
+        return this.name.equals(name);
     }
 }
